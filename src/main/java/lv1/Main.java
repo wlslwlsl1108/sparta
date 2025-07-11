@@ -20,6 +20,12 @@ public class Main {
                 System.exit(0);  // 프로그램 정상 종료
             }
 
+            // 초기화 신호
+            if (input.equalsIgnoreCase("reset")) {
+                return -1;
+            }
+
+
             // 숫자아니면 경고메세지 알림
             if (!input.matches("\\d+")) {  // 1개이상 연속되는 숫자만! (문자 포함시 false)
                 System.out.println("0을 포함한 양의 숫자만 입력해주세요!");
@@ -58,11 +64,17 @@ public class Main {
             // 확인되면 그 값은 n1 에 저장
             int n1 = getpositiveInteger(scanner, "첫 번째 숫자를 입력하세요: ");
 
+            //초기화 추가 -> n1
+            if (n1 == -1) {
+                System.out.println("초기화합니다.");
+                continue;
+            }
+
             char operator;  // operator 변수 선언
 
             while (true) {
 
-                System.out.println("연산자를 입력하세요 (+, -, *. /): ");
+                System.out.print("연산자를 입력하세요 (+, -, *. /): ");
 
                 // 사용자가 입력한 문자열(공백 이전 한단어)을 string 타입으로 읽어 opInput(변수)에 저장
                 String opInput = scanner.next();
@@ -71,6 +83,12 @@ public class Main {
                 if (opInput.equalsIgnoreCase("exit")) {
                     System.out.println("계산기를 종료합니다.");
                     System.exit(0);
+                }
+
+                //초기화 추가 -> 연산자
+                if (opInput.equalsIgnoreCase("reset")) {
+                    System.out.println("초기화합니다.");
+                    continue;
                 }
 
                 // 연산자 길이 체크 => 사칙연산 반복해서 입력 시 강제종료 오류 해결
@@ -96,6 +114,12 @@ public class Main {
             // [ / + 0 ] 입력 시, 다시 두번째 문자 재입력 기능 추가
             while (true){
                 n2 = getpositiveInteger(scanner, "두 번째 숫자를 입력하세요: ");
+
+                //초기화 추가 -> n2
+                if(n2 == -1){
+                    System.out.println("초기화합니다.");
+                    continue;
+                }
 
                 if(operator == '/' && n2 == 0) {
                     System.out.println("x!! 나눗셈 연산에서 분모에 0이 입력될 수 없습니다.");
