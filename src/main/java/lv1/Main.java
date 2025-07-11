@@ -93,7 +93,7 @@ public class Main {
 
                 // 연산자 길이 체크 => 사칙연산 반복해서 입력 시 강제종료 오류 해결
                 if (opInput.length() != 1) {
-                    System.out.println("연산자는 한 글자만 입력해주세요!");
+                    System.out.println("잘못입력하였습니다! 연산자(+, -, *, /)를 입력해주세요. ");
                     continue;
                 }
 
