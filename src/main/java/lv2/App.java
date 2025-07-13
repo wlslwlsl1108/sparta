@@ -7,10 +7,9 @@ import java.util.ArrayList;
 
 public class App {
 
-
     // 입력 받아 양의 정수 확인  -> 아니면 재입력 받음 (매서드 추가)
     // 반복기능 메서드로 정리 (중복 제거위해)
-    public static int getPositiveInteger(Scanner scanner, String message) {
+    public static int getPositiveInteger(Scanner scanner, String message, Calculator calculator) {
         while (true) {
 
             // 메세지를 보여주고, 단어를 받아와 입력받는다 (저장 = String 타입)
@@ -31,6 +30,12 @@ public class App {
                 return -1;
             }
 
+            // 데이터 삭제(delete) //
+            if (input.equalsIgnoreCase("delete")) {
+                calculator.removeResult();
+                System.out.println("가장 오래된 결과가 삭제되었습니다.");
+                continue;
+            }
 
             // 숫자 외 입력 => 경고 알림메세지 후 재입력 가능(continue) //
             if (!input.matches("\\d+")) {  // 1개이상 연속되는 숫자만! (문자 포함시 false)
@@ -59,6 +64,10 @@ public class App {
         // 사용자 입력도구 생성 //
         Scanner scanner = new Scanner(System.in);
 
+        // Calculator 클래스의 생성자 호출 => 객체 생성 //
+        // main 밖에 넣으면 오류 발생
+        Calculator calculator = new Calculator();
+
         // 계산 시작 안내문구 -> 시작할 때 한번만 사용 //
         System.out.println("계산을 시작합니다. 종료를 원하시면 exit, 초기화를 원하시면 reset을 입력해주세요.");
 
@@ -74,7 +83,7 @@ public class App {
 
                 // 메세지를 보여주고, 입력값을 받아 양의 정수인지 확인 후 => getPositiveInteger(메서드)가 역할
                 // 확인되면 그 값은 n1 에 저장
-                int num1 = getPositiveInteger(scanner, "첫 번째 숫자를 입력하세요: ");
+                int num1 = getPositiveInteger(scanner, "첫 번째 숫자를 입력하세요: ", calculator);
 
                 // n1 초기화 //
                 if (num1 == -1) {
@@ -128,7 +137,7 @@ public class App {
                 int num2;
                 // [ / + 0 ] 입력 시, 경고 알림메세지 후 다시 두번째 문자 재입력 //
                 while (true) {
-                    num2 = getPositiveInteger(scanner, "두 번째 숫자를 입력하세요: ");
+                    num2 = getPositiveInteger(scanner, "두 번째 숫자를 입력하세요: ",  calculator);
 
                     // n2 초기화 //
                     if (num2 == -1) {
@@ -146,9 +155,6 @@ public class App {
                 }
 
 
-                // Calculator 클래스의 생성자 호출 => 객체 생성 //
-                Calculator calculator = new Calculator();
-
                 //게터 => 위 calculator를 정의하고 나서 생성해야함
                 ArrayList<Integer> arrayList = calculator.getArrayList();
 
@@ -158,16 +164,13 @@ public class App {
                 ArrayList<Integer> arrayList2 = calculator.getArrayList();
 
 
-
                 // 메서드 호출 //
                int result = calculator.calculator(num1, num2, operator);
 
                 // 결과 출력 //
                 System.out.println("결과: " + result);
-
+                System.out.println("저장된 결과 목록: " + calculator.getArrayList());
             }
         }
-
-
     }
 }

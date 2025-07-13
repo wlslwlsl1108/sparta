@@ -14,35 +14,35 @@ public class Calculator {
 
 
     // 사칙연산 수행 후 연산처리결과값 반환하는 메서드 //
-    public int calculator(int num1, int num2, char operator){
+    public int calculator(int num1, int num2, char operator) {
 
-     int result = 0;
+        int result = 0;
 
 
-     switch (operator){
+        switch (operator) {
 
-         case ('+'):
-             result = num1 + num2;
-             break;
+            case ('+'):
+                result = num1 + num2;
+                break;
 
-         case ('-'):
-             result = num1 - num2;
-             break;
+            case ('-'):
+                result = num1 - num2;
+                break;
 
-         case ('*'):
-             result = num1 * num2;
-             break;
+            case ('*'):
+                result = num1 * num2;
+                break;
 
-         case ('/'):
-             if(num2 == 0){
-                 System.out.println("분모에 0이 올 수 없습니다. 다른 숫자를 입력해주세요.");
-             }else {
-                 result = num1 / num2;
-             }
+            case ('/'):
+                if (num2 == 0) {
+                    System.out.println("분모에 0이 올 수 없습니다. 다른 숫자를 입력해주세요.");
+                } else {
+                    result = num1 / num2;
+                }
 
-             break;
+                break;
 
-     }
+        }
 
         arrayList.add(result);
         return result;
@@ -57,5 +57,12 @@ public class Calculator {
     //세터//
     public void setArrayList(ArrayList<Integer> arrayList) {
         this.arrayList = arrayList;
+    }
+
+    // 삭제 메서드 //
+    public void removeResult() {
+        if (!arrayList.isEmpty()) {
+            arrayList.remove(0);
+        }
     }
 }
