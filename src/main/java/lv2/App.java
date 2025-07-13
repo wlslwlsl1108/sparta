@@ -2,7 +2,11 @@ package lv2;
 
 import java.util.Scanner;
 
+//ArrayList 게터 설정을 위해 필요
+import java.util.ArrayList;
+
 public class App {
+
 
     // 입력 받아 양의 정수 확인  -> 아니면 재입력 받음 (매서드 추가)
     // 반복기능 메서드로 정리 (중복 제거위해)
@@ -144,6 +148,16 @@ public class App {
 
                 // Calculator 클래스의 생성자 호출 => 객체 생성 //
                 Calculator calculator = new Calculator();
+
+                //게터 => 위 calculator를 정의하고 나서 생성해야함
+                ArrayList<Integer> arrayList = calculator.getArrayList();
+
+
+                //세터
+                calculator.setArrayList(arrayList);
+                ArrayList<Integer> arrayList2 = calculator.getArrayList();
+
+
 
                 // 메서드 호출 //
                int result = calculator.calculator(num1, num2, operator);
