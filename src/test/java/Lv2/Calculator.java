@@ -44,5 +44,8 @@ public class Calculator {
         return arrayList;
     }
 
-
+    //세터//
+    public void setArrayList(ArrayList<Integer> arrayList){
+        this.arrayList = arrayList;
+    }
 }

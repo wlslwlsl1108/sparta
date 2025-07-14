@@ -165,7 +165,9 @@ public class App {
             // 게터
             ArrayList<Integer> arrayList = calculator.getArrayList();
 
-            //
+            // 세터
+            calculator.setArrayList(arrayList);
+
 
             // 계산 삭제 //
             // operator 변수가 해당 기호를 확인해 그에 맞는 계산 진행
