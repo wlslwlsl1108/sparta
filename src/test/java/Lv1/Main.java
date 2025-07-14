@@ -62,6 +62,7 @@ public class Main {
 
         }
 
+
         while (true) {
 
             // 연산자 입력받기 //
@@ -72,7 +73,15 @@ public class Main {
 
             int result = 0;
 
+            if (operator != '+' && operator != '-' && operator != '*' && operator != '/'){
+                System.out.println("x!! 잘못된 연산자입니다. 다시 연산자( +, -, * / )를 입력해주세요.");
+                continue;
+            }else {
+                break;
+            }
+
             switch (operator){
+
                 case '+':
                     result = num1 + num2;
                     break;
