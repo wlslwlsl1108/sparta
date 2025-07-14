@@ -6,7 +6,9 @@ import java.util.ArrayList;
 public class Calculator {
 
     // 컬렉션 타입 필드 //
-    public ArrayList<Integer> arrayList = new ArrayList<Integer>();
+    // 캡슐화 -> private 로 변경 //
+    // private 로 변경 하면 접근 못해서 오류발생 -> 게터/세터 필요
+    private ArrayList<Integer> arrayList = new ArrayList<Integer>();
 
     // 사칙연산 수행 후 연산처리결과값 반환하는 메서드 //
     public int calculate(int num1, int num2, char operator){
@@ -36,4 +38,11 @@ public class Calculator {
         arrayList.add(result);
         return result;
     }
+
+    //게터//
+    public ArrayList<Integer> getArrayList(){
+        return arrayList;
+    }
+
+
 }

@@ -162,12 +162,18 @@ public class App {
 
             }
 
+            // 게터
+            ArrayList<Integer> arrayList = calculator.getArrayList();
+
+            //
 
             // 계산 삭제 //
             // operator 변수가 해당 기호를 확인해 그에 맞는 계산 진행
 
-            // calculator 메서드 호출 -> 연산은 calculator 메소드에서 처리//
+            // calculate 메서드 호출 -> 연산은 calculate 메소드에서 처리//
             result = calculator.calculate(num1, num2, operator);
+            //calculator = Calculator 클래스의 객체
+            //calculate() = Calculator 클래스 안의 메서드
 
             // 계산 결과 출력 //
             System.out.println("결과는: " + result);
