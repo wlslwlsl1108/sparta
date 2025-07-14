@@ -31,6 +31,9 @@ public class Calculator {
                 result = num1 / num2;
                 break;
         }
+
+        // 연산 결과 저장 //
+        arrayList.add(result);
         return result;
     }
 }
