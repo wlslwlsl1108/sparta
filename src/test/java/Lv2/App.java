@@ -166,7 +166,7 @@ public class App {
             // 계산 삭제 //
             // operator 변수가 해당 기호를 확인해 그에 맞는 계산 진행
 
-            // calculator 메서드 호출 //
+            // calculator 메서드 호출 -> 연산은 calculator 메소드에서 처리//
             result = calculator.calculate(num1, num2, operator);
 
             // 계산 결과 출력 //
