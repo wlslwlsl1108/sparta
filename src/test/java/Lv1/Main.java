@@ -62,40 +62,44 @@ public class Main {
 
         }
 
+        while (true) {
 
-        // 연산자 입력받기 //
-        System.out.print("연산자( +, -, *, /)를 입력하세요: ");
+            // 연산자 입력받기 //
+            System.out.print("연산자( +, -, *, /)를 입력하세요: ");
 
-        // 사칙연산 기호 chaAt(0) 변수에 저장 //
-        char operator = scanner.next().charAt(0);
+            // 사칙연산 기호 chaAt(0) 변수에 저장 //
+            char operator = scanner.next().charAt(0);
 
-        int result = 0;
+            int result = 0;
 
-        switch (operator){
-            case '+':
-                result = num1 + num2;
-                break;
-
-            case '-':
-                result = num1 - num2;
-                break;
-
-            case '*':
-                result = num1 * num2;
-                break;
-
-            // 나눗셈 경우, 분모에 0이 오면 경고 메세지 후, 재입력 가능 //
-            case '/':
-                if (num2 == 0){
-                    System.out.println("분모에는 0이 올 수 없습니다.");
-                }else {
-                    result = num1 / num2;
+            switch (operator){
+                case '+':
+                    result = num1 + num2;
                     break;
-                }
+
+                case '-':
+                    result = num1 - num2;
+                    break;
+
+                case '*':
+                    result = num1 * num2;
+                    break;
+
+                // 나눗셈 경우, 분모에 0이 오면 경고 메세지 후, 재입력 가능 //
+                case '/':
+                    if (num2 == 0){
+                        System.out.println("분모에는 0이 올 수 없습니다.");
+                        continue;
+                    }else {
+                        result = num1 / num2;
+                        break;
+                    }
+            }
+            // 계산 결과 출력 //
+            System.out.println("결과는: " + result);
+            break;
         }
 
-        // 계산 결과 출력 //
-        System.out.println("결과는: " + result);
     }
 
 }
