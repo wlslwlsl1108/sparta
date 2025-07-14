@@ -26,6 +26,10 @@ public class Main {
             char operator;
             int result = 0;
 
+
+
+            // 1. 첫번재 숫자//
+
             while (true) {
                 // 첫번 째 숫자 입력받기 (0포함 양의 정수) //
                 System.out.print("첫 번째 숫자(0포함 양의 정수)를 입력하세요: ");
@@ -64,6 +68,10 @@ public class Main {
 
             }
 
+
+
+            // 2. 연산자 //
+
             while (true) {
 
                 // 연산자 입력받기 //
@@ -71,51 +79,67 @@ public class Main {
 
                 // input 정의//
                 // 연산자 길이 체크를 위해 필요 (연산자 반복입력 오류 해결)
+                // 연산자 exit 문자열 입력 허용해야 하므로 사용
                 String input = scanner.nextLine();
 
+                // exit 입력 시 계산기 정상종료
+                if (input.equalsIgnoreCase("exit")){
+                    System.out.println("계산기를 종료합니다.");
+                    System.exit(0); // 프로그램 정상 종료
+                }
+
                 // 연산자 길이 체크 //
+                // ++, ---, ag 같은 오타 입력 방지
                 if (input.length() != 1) {
                     System.out.println("잘못입력하였습니다! 연산자( +, -, *, /)를 한 글자만 입력하세요. ");
                     continue;
                 }
 
                 // 사칙연산 기호 chaAt(0) 변수에 저장 //
-                // char operator = scanner.next().charAt(0);
-                operator = input.charAt(0);
+                // char operator = scanner.next().charAt(0); => 기존
+                operator = input.charAt(0); // 첫번째 문자만 꺼내 operator 변수에 저장
 
                 // while 문 삭제
+                // 연산자 유효성 검사
                 if (operator != '+' && operator != '-' && operator != '*' && operator != '/') {
                     System.out.println("x!! 잘못된 연산자입니다. 다시 연산자( +, -, * / )를 입력해주세요.");
                     continue;
                 }
 
-                break;
+                break; // => 정상입력 시 반복 종료
 
             }
 
-            // 음수 입력 시 경고 메세지 후 재입력 가능 //
 
+
+            // 두번째 숫자 //
+            // 두번 째 숫자 입력받기 (0포함 양의 정수) //
             while (true) {
-                // 두번 째 숫자 입력받기 (0포함 양의 정수) //
+
                 System.out.print("두 번째 숫자(0포함 양의 정수)를 입력하세요: ");
 
-                //input => 한 줄 전체를 문자열로 받는다. (nextLine)
+                // input => 한 줄 전체를 문자열로 받는다. (nextLine)
+                // 버퍼 지울 필요 없이, 문자열로 먼저 받아 숫자/exit 판별
                 String input = scanner.nextLine();
 
                 //exit 입력 시 계산기 정상 종료
                 if (input.equalsIgnoreCase("exit")){
+                           // 대소문자 구별 없이 exit 입력시 종료
                     System.out.println("계산기를 종료합니다.");
                     System.exit(0);  // 시스템 정상 종료
                 }
 
+                // 예외처리 -> 문자열 입력을 정수로 바꾸는 과정에서 에러 발생 가능성 있으므로
                 try {
 
-                    num2 = Integer.parseInt(input); // num1과 동일하게 추가
+                    // String input = scanner.nextLine() 를 통해 입력 전체를 문자열로 받고
+                    // exit 체크 후 숫자로 변환
+                    num2 = Integer.parseInt(input);
 
                     // 음수 입력 시 오류 메세지 출력 후, 재입력 가능
                     if (num2 < 0) {
                         System.out.println("음수는 입력할 수 없습니다. 0 포함한 숫자(양의 정수)만 입력해주세요.");
-                        continue;
+                        continue; // -> 반복문 처음으로 돌아감
                     }
 
                     // 분모 0 오류 메세지 출력 후, 재입력 가능
@@ -123,16 +147,20 @@ public class Main {
                         System.out.println("0으로 나눌 수 없습니다.");
                         continue;
                     }
-                    break;
+                    break; // -> 정상입력 => 반복종료
 
+                  // 문자 입력 시 오류 메세지 출력 후, 재입력 가능
                 } catch (Exception e) {
                     System.out.println("문자는 입력할 수 없습니다. 0 포함한 숫자(양의 정수)만 입력해주세요.");
-                    // 입력 버퍼 비우기 삭제 => 위에서 num2 정의를 바꿨으므로
+                    // 입력 버퍼 비우기 삭제 => 위에서 num2 정의를 바꿨으므로 불필요
                     // scanner.nextLine();
                 }
 
             }
 
+
+            // 계산 //
+            // operator 변수가 해당 기호를 확인해 그에 맞는 계산 진행
             switch (operator) {
 
                 case '+':
@@ -147,15 +175,17 @@ public class Main {
                     result = num1 * num2;
                     break;
 
-                // 나눗셈 경우, 분모에 0이 오면 경고 메세지 후, 재입력 가능 //
+                // 분모 0인지는 앞에서 이미 검사 완료
                 case '/':
                     result = num1 / num2;
                     break;
 
             }
+
             // 계산 결과 출력 //
             System.out.println("결과는: " + result);
-            continue;
+            continue; // -> 계산 끝나면 바깥쪽 반복문으로 돌아가 다시 실행!
+                      // => 계산 반복 가능하게 만든 구조 (가능하게 하기 위해 전체를 while로 묶음)
 
         }
     }
