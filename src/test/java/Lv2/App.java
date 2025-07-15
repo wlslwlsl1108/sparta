@@ -169,7 +169,7 @@ public class App {
             calculator.setArrayList(arrayList);
 
 
-            // 계산 삭제 //
+            // 계산 부분 삭제 //
             // operator 변수가 해당 기호를 확인해 그에 맞는 계산 진행
 
             // calculate 메서드 호출 -> 연산은 calculate 메소드에서 처리//
@@ -180,12 +180,15 @@ public class App {
             // 계산 결과 출력 //
             System.out.println("결과는: " + result);
 
+            // 결과 리스트에서 첫 번째 값 삭제
+            calculator.removeResult();
+
             continue; // -> 계산 끝나면 바깥쪽 반복문으로 돌아가 다시 실행!
             // => 계산 반복 가능하게 만든 구조 (가능하게 하기 위해 전체를 while로 묶음)
 
+
         }
 
-
-
     }
+
 }
