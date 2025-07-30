@@ -23,6 +23,6 @@ public class ArrayProcessor {
         ArrayProcessor processor = new ArrayProcessor();
         int[] numbers = {10, 3, 22, 5, 17, 8};
         int result = processor.sumEvenNumbers(numbers);
-        System.out.println("짝수들의 합: " + result); // 예상 결과: 40
+        System.out.println("짝수들의 합: " + result);  // 예상 결과: 40
     }
 }
