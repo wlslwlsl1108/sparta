@@ -27,3 +27,15 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# IntelliJ IDEA 설정 파일 제외
+.idea/
+*.iml
+
+# 빌드 결과물 제외
+/out/
+/build/
+
+# Mac / Windows OS 생성 파일 제외
+.DS_Store
+Thumbs.db
