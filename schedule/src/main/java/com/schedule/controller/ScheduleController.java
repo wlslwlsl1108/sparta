@@ -6,6 +6,7 @@ import com.schedule.dto.ScheduleUpRequest;
 import com.schedule.dto.ScheduleUpResponse;
 import com.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,33 +19,33 @@ public class ScheduleController {
 
     // CRUD - "C (Create)"  => 생성
     @PostMapping("/schedules")
-    public ScheduleResponse createSchedule(
+    public ResponseEntity<ScheduleResponse> createSchedule(
             @RequestBody ScheduleRequest scheduleRequest
     ){
-        return scheduleService.save(scheduleRequest);
+        return ResponseEntity.ok(scheduleService.save(scheduleRequest));
     }
 
     // CRUD - "R (Read)"  => 전체 조회
     @GetMapping("/schedules")
-    public List<ScheduleResponse> getSchedules(){
+    public ResponseEntity<List<ScheduleResponse>> getSchedules(){
         return scheduleService.findSchedules();
     }
 
     // CRUD - "R (Read)"  => 단건 조회
     @GetMapping("/schedules/{scheduleId}")
-    public ScheduleResponse getSchedule(
+    public ResponseEntity<ScheduleResponse> getSchedule(
             @PathVariable Long scheduleId
     ){
-        return scheduleService.findSchedule(scheduleId);
+        return ResponseEntity.ok(scheduleService.findSchedule(scheduleId));
     }
 
     // CRUD - "U (Update)"  => 수정
     @PutMapping("/schedules/{scheduleId}")
-    public ScheduleUpResponse updateSchedule(
+    public ResponseEntity<ScheduleUpResponse> updateSchedule(
             @PathVariable Long scheduleId,
             @RequestBody ScheduleUpRequest scheduleUpRequest
     ){
-        return scheduleService.update(scheduleId, scheduleUpRequest);
+        return ResponseEntity.ok(scheduleService.update(scheduleId, scheduleUpRequest));
     }
 
     // CRUD - "D (Delete)"  => 삭제
