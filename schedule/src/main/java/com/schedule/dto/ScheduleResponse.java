@@ -11,7 +11,7 @@ public class ScheduleResponse {
     private final String title;
     private final String content;
     private final String name;
-    // private final String password;
+    // private final String password; -> AIP 응답에 비밀번호 제외
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
@@ -20,7 +20,7 @@ public class ScheduleResponse {
         this.title = title;
         this.content = content;
         this.name = name;
-        //this.password = password;
+        //this.password = password; -> AIP 응답에 비밀번호 제외
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }

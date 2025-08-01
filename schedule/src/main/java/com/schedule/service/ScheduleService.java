@@ -7,6 +7,7 @@ import com.schedule.dto.ScheduleUpResponse;
 import com.schedule.entity.Schedule;
 import com.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,7 +44,10 @@ public class ScheduleService {
     // CRUD - "R (Read)"  => 전체 조회
     @Transactional(readOnly = true)
     public List<ScheduleResponse> findSchedules() {
-        List<Schedule> schedules = scheduleRepository.findAll();
+        List<Schedule> schedules = scheduleRepository.findAll(
+                // 정렬 -> Sort.by("컬럼명").descending() 또는 ascending()
+                Sort.by("createdAt").descending()
+        );
         List<ScheduleResponse> dtos = new ArrayList<>();
 
         for (Schedule schedule : schedules) {
@@ -52,7 +56,7 @@ public class ScheduleService {
                     schedule.getTitle(),
                     schedule.getContent(),
                     schedule.getName(),
-                    //schedule.getPassword(),
+                    //schedule.getPassword(), -> API 응답 제외
                     schedule.getCreatedAt(),
                     schedule.getUpdatedAt()
             );
