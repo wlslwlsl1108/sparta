@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Entity
 @NoArgsConstructor
@@ -18,6 +20,8 @@ public class Schedule extends BaseEntity {
     private String content;
     private String name;
     private String password;
+    // private LocalDateTime createdAt;  -> 상속 받았으므로 적어주지 않아도 사용가능!
+    // private LocalDateTime updatedAt;
 
     public Schedule(String title, String content, String name, String password) {
         this.title = title;

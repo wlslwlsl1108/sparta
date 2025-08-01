@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,9 @@ public class ScheduleService {
                 savedSchedule.getTitle(),
                 savedSchedule.getContent(),
                 savedSchedule.getName(),
-                savedSchedule.getPassword()
+                //savedSchedule.getPassword(),
+                savedSchedule.getCreatedAt(),
+                savedSchedule.getUpdatedAt()
         );
     }
 
@@ -49,7 +52,9 @@ public class ScheduleService {
                     schedule.getTitle(),
                     schedule.getContent(),
                     schedule.getName(),
-                    schedule.getPassword()
+                    //schedule.getPassword(),
+                    schedule.getCreatedAt(),
+                    schedule.getUpdatedAt()
             );
             dtos.add(scheduleResponse);
         }
@@ -96,7 +101,9 @@ public class ScheduleService {
                 schedule.getTitle(),
                 schedule.getContent(),
                 schedule.getName(),
-                schedule.getPassword()
+                //schedule.getPassword(),
+                schedule.getCreatedAt(),
+                schedule.getUpdatedAt()
         );
     }
 }
