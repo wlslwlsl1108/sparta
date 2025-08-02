@@ -71,6 +71,18 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 scheduleId가 없습니다.")
         );
+
+        // 비밀번호 검증
+        if (schedule.getPassword().equals(scheduleUpRequest.getUppassword())) {
+             throw new IllegalArgumentException("비밀번호가 일지차지 않습니다.");
+        }
+
+        // 검증 통과
+        schedule.updateContent(
+                scheduleUpRequest.getTitle(),
+                scheduleUpRequest.getName()
+        );
+
         schedule.updateContent(
                 scheduleUpRequest.getTitle(),
                 scheduleUpRequest.getName()
