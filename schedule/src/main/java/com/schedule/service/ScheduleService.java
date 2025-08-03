@@ -64,6 +64,28 @@ public class ScheduleService {
         return dtos;
     }
 
+    // CRUD - "R (Read)"  => 작성자명으로 조회
+    public List<ScheduleResponse> findSchedulesName(String name){
+        List<Schedule> schedules = scheduleRepository.findByName(name,Sort.by("createdAt").descending());
+                // 정렬 -> Sort.by("컬럼명").descending() 또는 ascending()
+
+        List<ScheduleResponse> dtos = new ArrayList<>();
+
+        for (Schedule schedule : schedules) {
+            ScheduleResponse scheduleResponse = new ScheduleResponse(
+                    schedule.getId(),
+                    schedule.getTitle(),
+                    schedule.getContent(),
+                    schedule.getName(),
+                    //schedule.getPassword(), -> API 응답 제외
+                    schedule.getCreatedAt(),
+                    schedule.getUpdatedAt()
+            );
+            dtos.add(scheduleResponse);
+        }
+        return dtos;
+    }
+
     // CRUD - "U (Update)"  => 수정
     @Transactional
     public ScheduleUpResponse update(Long scheduleId, ScheduleUpRequest scheduleUpRequest) {

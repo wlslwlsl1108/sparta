@@ -24,8 +24,15 @@ public class ScheduleController {
 
     // CRUD - "R (Read)"  => 전체 조회
     @GetMapping("/schedules")
-    public ResponseEntity<List<ScheduleResponse>> getSchedules(){
-        return ResponseEntity.ok(scheduleService.findSchedules());
+    public ResponseEntity<List<ScheduleResponse>> getSchedules(
+            @RequestParam(required = false) String name
+    ){
+        if(name == null){
+            return ResponseEntity.ok(scheduleService.findSchedules());
+        }
+        else{
+            return ResponseEntity.ok(scheduleService.findSchedulesName(name));
+        }
     }
 
     // CRUD - "R (Read)"  => 단건 조회
