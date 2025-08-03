@@ -7,5 +7,5 @@ public class ScheduleUpRequest {
 
     private String title;
     private String name;
-    private String uppassword;
+    private String password;
 }

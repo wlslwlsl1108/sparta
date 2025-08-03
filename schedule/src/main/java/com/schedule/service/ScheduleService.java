@@ -1,9 +1,6 @@
 package com.schedule.service;
 
-import com.schedule.dto.ScheduleRequest;
-import com.schedule.dto.ScheduleResponse;
-import com.schedule.dto.ScheduleUpRequest;
-import com.schedule.dto.ScheduleUpResponse;
+import com.schedule.dto.*;
 import com.schedule.entity.Schedule;
 import com.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
@@ -73,8 +70,8 @@ public class ScheduleService {
         );
 
         // 비밀번호 검증
-        if (schedule.getPassword().equals(scheduleUpRequest.getUppassword())) {
-             throw new IllegalArgumentException("비밀번호가 일지차지 않습니다.");
+        if (!schedule.getPassword().equals(scheduleUpRequest.getPassword())) {
+             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
         // 검증 통과
@@ -83,10 +80,6 @@ public class ScheduleService {
                 scheduleUpRequest.getName()
         );
 
-        schedule.updateContent(
-                scheduleUpRequest.getTitle(),
-                scheduleUpRequest.getName()
-        );
         return new ScheduleUpResponse(
                 schedule.getId(),
                 schedule.getTitle(),
@@ -96,12 +89,16 @@ public class ScheduleService {
 
     // CRUD - "D (Delete)"  => 삭제
     @Transactional
-    public void deleteSchedule(Long scheduleId) {
-        boolean b = scheduleRepository.existsById(scheduleId);
-        if (!b) {
-            throw new IllegalArgumentException("해당하는 scheduleId가 없습니다.");
-        }
-        scheduleRepository.deleteById(scheduleId);
+    public void deleteSchedule(Long scheduleId, ScheduleDeRequest scheduleDeRequest) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
+                () -> new IllegalArgumentException("해당하는 scheduleId가 없습니다.")
+        );
+
+         // 비밀번호 검증
+         if (!schedule.getPassword().equals(scheduleDeRequest.getPassword())){
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+         }
+         scheduleRepository.delete(schedule);
     }
 
     // CRUD - "R (Read)"  => 단건 조회

@@ -1,9 +1,6 @@
 package com.schedule.controller;
 
-import com.schedule.dto.ScheduleRequest;
-import com.schedule.dto.ScheduleResponse;
-import com.schedule.dto.ScheduleUpRequest;
-import com.schedule.dto.ScheduleUpResponse;
+import com.schedule.dto.*;
 import com.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -51,8 +48,9 @@ public class ScheduleController {
     // CRUD - "D (Delete)"  => 삭제
     @DeleteMapping("/schedules/{scheduleId}")
     public void deleteSchedule(
-            @PathVariable Long scheduleId
+            @PathVariable Long scheduleId,
+            @RequestBody ScheduleDeRequest scheduleDeRequest
     ){
-        scheduleService.deleteSchedule(scheduleId);
+        scheduleService.deleteSchedule(scheduleId, scheduleDeRequest);
     }
 }
