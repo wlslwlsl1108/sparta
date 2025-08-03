@@ -5,8 +5,10 @@ import com.schedule.entity.Schedule;
 import com.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -71,7 +73,7 @@ public class ScheduleService {
 
         // 비밀번호 검증
         if (!schedule.getPassword().equals(scheduleUpRequest.getPassword())) {
-             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다.");
         }
 
         // 검증 통과
@@ -96,7 +98,7 @@ public class ScheduleService {
 
          // 비밀번호 검증
          if (!schedule.getPassword().equals(scheduleDeRequest.getPassword())){
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다.");
          }
          scheduleRepository.delete(schedule);
     }
@@ -114,7 +116,6 @@ public class ScheduleService {
                 schedule.getTitle(),
                 schedule.getContent(),
                 schedule.getName(),
-                //schedule.getPassword(),
                 schedule.getCreatedAt(),
                 schedule.getUpdatedAt()
         );
