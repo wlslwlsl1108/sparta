@@ -22,7 +22,7 @@ public class ScheduleController {
         return ResponseEntity.ok(scheduleService.save(scheduleRequest));
     }
 
-    // CRUD - "R (Read)"  => 전체 조회
+    // CRUD - "R (Read)"  => 전체 조회 및 작성자명 조회
     @GetMapping("/schedules")
     public ResponseEntity<List<ScheduleResponse>> getSchedules(
             @RequestParam(required = false) String name

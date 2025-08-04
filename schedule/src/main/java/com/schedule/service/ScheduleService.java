@@ -34,7 +34,6 @@ public class ScheduleService {
                 savedSchedule.getTitle(),
                 savedSchedule.getContent(),
                 savedSchedule.getName(),
-                //savedSchedule.getPassword(),
                 savedSchedule.getCreatedAt(),
                 savedSchedule.getUpdatedAt()
         );
@@ -86,6 +85,24 @@ public class ScheduleService {
         return dtos;
     }
 
+    // CRUD - "R (Read)"  => 단건 조회
+    @Transactional(readOnly = true)
+    public ScheduleResponse findSchedule(Long scheduleId) {
+
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
+                () -> new IllegalArgumentException("해당하는 scheduleId가 없습니다.")
+        );
+
+        return new ScheduleResponse(
+                schedule.getId(),
+                schedule.getTitle(),
+                schedule.getContent(),
+                schedule.getName(),
+                schedule.getCreatedAt(),
+                schedule.getUpdatedAt()
+        );
+    }
+
     // CRUD - "U (Update)"  => 수정
     @Transactional
     public ScheduleUpResponse update(Long scheduleId, ScheduleUpRequest scheduleUpRequest) {
@@ -125,22 +142,6 @@ public class ScheduleService {
          scheduleRepository.delete(schedule);
     }
 
-    // CRUD - "R (Read)"  => 단건 조회
-    @Transactional(readOnly = true)
-    public ScheduleResponse findSchedule(Long scheduleId) {
 
-        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
-                () -> new IllegalArgumentException("해당하는 scheduleId가 없습니다.")
-        );
-
-        return new ScheduleResponse(
-                schedule.getId(),
-                schedule.getTitle(),
-                schedule.getContent(),
-                schedule.getName(),
-                schedule.getCreatedAt(),
-                schedule.getUpdatedAt()
-        );
-    }
 }
 
