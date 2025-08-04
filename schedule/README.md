@@ -27,7 +27,7 @@ lv1 ~ lv4로 CRUD API 가 구현되었습니다.
 
 ## ERD
 
-![ERD](ERD_1.png)
+![ERD](images/ERD_1.png)
 
 ---
 
