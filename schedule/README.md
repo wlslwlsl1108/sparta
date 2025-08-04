@@ -8,7 +8,7 @@ lv1 ~ lv4로 CRUD API 가 구현되었습니다.
 ## 목차
 - [소개](#소개)
 - [ERD](#ERD)
-- [API](#API)
+- [API 명세서](#API_명세서)
 - [lv1 ~ lv4 요약](#lv1--lv4-요약)
 - [클래스별 역할 및 기능](#클래스별-역할-및-기능)
 - [실행 예시](#실행-예시)
@@ -26,13 +26,20 @@ lv1 ~ lv4로 CRUD API 가 구현되었습니다.
 ---
 
 ## ERD
-
+아래 사진은 프로젝트의 ERD 입니다.
 ![ERD](images/ERD_1.png)
 
 ---
 
-## API
+## API 명세서
 
+| 기능                      | Method | URL                          | Request                                                                 | Response |
+|---------------------------|--------|------------------------------|-------------------------------------------------------------------------|----------|
+| 일정 생성하기             | POST   | `/schedules`                 | ```json { "title": "string", "content": "string", "name": "string", "password": "string" } ``` | **201 Created**<br>```json { "id": Long, "title": "string", "content": "string", "name": "string", "createdAt": "datetime", "updatedAt": "datetime" } ``` |
+| 일정 전체 조회하기        | GET    | `/schedules`                 | -                                                                       | **200 OK**<br>```json [ { "id": Long, "title": "string", "content": "string", "name": "string", "createdAt": "datetime", "updatedAt": "datetime" } ] ```<br>없으면 `[]` |
+| 일정 단건 조회하기        | GET    | `/schedules/{scheduleId}`    | PathVariable: `scheduleId`                                              | **200 OK**<br>```json { "id": Long, "title": "string", "content": "string", "name": "string", "createdAt": "datetime", "updatedAt": "datetime" } ```<br>**404 Not Found**: 해당 일정 없음 |
+| 일정 제목, 이름 수정하기 (덮어쓰기) | PUT    | `/schedules/{scheduleId}`    | PathVariable: `scheduleId`<br>```json { "title": "string", "name": "string", "password": "string" } ``` | **200 OK**<br>```json { "id": Long, "title": "string", "name": "string" } ```<br>**404 Not Found**<br>**400 Bad Request**: 비밀번호 불일치 |
+| 일정 삭제하기             | DELETE | `/schedules/{scheduleId}`    | PathVariable: `scheduleId`<br>```json { "password": "string" } ```      | **200 OK**<br>```json { "message": "삭제 완료" } ```<br>**404 Not Found**<br>**400 Bad Request**: 비밀번호 불일치 |
 
 
 ---
