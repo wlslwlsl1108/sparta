@@ -25,7 +25,7 @@ lv1 ~ lv4로 CRUD API가 구현되었습니다.
 - CRUD API 구현
 - Postman 활용한 테스트
 - MySQL / JPA 활용(데이터 CRUD)
-- Spring MVC 어노테이션 이용해 요청 및 컨트롤러 메서드 매핑
+- Spring MVC 어노테이션(@RequestMapping, @GetMapping, @PostMapping) 활용
 - @RestController, @Service, @Repository 기능 활용
 
 ---
@@ -54,20 +54,20 @@ lv1 ~ lv4로 CRUD API가 구현되었습니다.
 
 ## API 명세서
 
-| 기능                      | Method | URL                          | Request                                                                                                 | Response |
-|---------------------------|--------|------------------------------|---------------------------------------------------------------------------------------------------------|----------|
-| 일정 생성하기             | POST   | `/schedules`                 | ```json { "title": "string", "content": "string", "name": "string", "password": "string" } ```          | **201 Created**<br>```json { "id": Long, "title": "string", "content": "string", "name": "string", "createdAt": "datetime", "updatedAt": "datetime" } ``` |
-| 일정 전체 조회하기        | GET    | `/schedules`                 | -                                                                                                       | **200 OK**<br>```json [ { "id": Long, "title": "string", "content": "string", "name": "string", "createdAt": "datetime", "updatedAt": "datetime" } ] ```<br>없으면 `[]` |
-| 일정 단건 조회하기        | GET    | `/schedules/{scheduleId}`    | PathVariable: `scheduleId`                                                                              | **200 OK**<br>```json { "id": Long, "title": "string", "content": "string", "name": "string", "createdAt": "datetime", "updatedAt": "datetime" } ```<br>**404 Not Found**: 해당 일정 없음 |
-| 일정 제목, 이름 수정하기 (덮어쓰기) | PUT    | `/schedules/{scheduleId}`    | PathVariable: `scheduleId`<br>```json { "title": "string", "name": "string", "password": "string" } ``` | **200 OK**<br>```json { "id": Long, "title": "string", "name": "string" } ```<br>**404 Not Found**<br>**400 Bad Request**: 비밀번호 불일치 |
-| 일정 삭제하기             | DELETE | `/schedules/{scheduleId}`    | PathVariable: `scheduleId`<br>```json { "password": "string" } ```                                      | **200 OK**<br>```json { "message": "삭제 완료" } ```<br>**404 Not Found**<br>**400 Bad Request**: 비밀번호 불일치 |
+| 기능                      | Method | URL                          | Request                                                                                                 | Response                                                                                                                                                                                        |
+|---------------------------|--------|------------------------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 일정 생성하기             | POST   | `/schedules`                 | ```json { "title": "string", "content": "string", "name": "string", "password": "string" } ```          | **200 OK**<br>```json { "id": Long, "title": "string", "content": "string", "name": "string", "createdAt": "datetime", "updatedAt": "datetime" } ```                                            |
+| 일정 전체 조회하기        | GET    | `/schedules`                 | -                                                                                                       | **200 OK**<br>```json [ { "id": Long, "title": "string", "content": "string", "name": "string", "createdAt": "datetime", "updatedAt": "datetime" } ] ```<br>없으면 `[]`                            |
+| 일정 단건 조회하기        | GET    | `/schedules/{scheduleId}`    | PathVariable: `scheduleId`                                                                              | **200 OK**<br>```json { "id": Long, "title": "string", "content": "string", "name": "string", "createdAt": "datetime", "updatedAt": "datetime" } ```<br>**500 Internal Server Error**: 해당 일정 없음 |
+| 일정 제목, 이름 수정하기 (덮어쓰기) | PUT    | `/schedules/{scheduleId}`    | PathVariable: `scheduleId`<br>```json { "title": "string", "name": "string", "password": "string" } ``` | **200 OK**<br>```json { "id": Long, "title": "string", "name": "string" } ```<br>**500 Internal Server Error**: 해당 일정 없음 <br>**400 Bad Request**: 비밀번호 불일치                                      |
+| 일정 삭제하기             | DELETE | `/schedules/{scheduleId}`    | PathVariable: `scheduleId`<br>```json { "password": "string" } ```                                      | **200 OK**<br>```json { "message": "삭제 완료" } ```<br>**500 Internal Server Error**: 해당 일정 없음 <br>**400 Bad Request**: 비밀번호 불일치                                                                                          |
 
 
 ---
 
 ## lv1 ~ lv4 요약
 
-[lv1. CRUD의 "C" - 일정 생성]
+[**lv1. CRUD의 "C" - 일정 생성**]
 - 일정 제목, 일정 내용, 작성자명, 비밀번호, 작성/수정일 저장
 - 작성/수정일은 날짜와 시간 모두 포함 (최초생성시 동일)
 - 각 일정 고유 식별자(ID)를 자동으로 생성/관리
@@ -75,13 +75,13 @@ lv1 ~ lv4로 CRUD API가 구현되었습니다.
 - API 응답에 비밀번호 제외
 
 
-[lv2. CRUD의 "R" - 일정 조회]
+[**lv2. CRUD의 "R" - 일정 조회**]
 - 작성자명 기준으로 등록된 일정 목록 전부 조회 (하나의 API)
 - 수정일 기준 내림차순 정렬
 - API 응답에 비밀번호 제외
 
 
-[lv3. CRUD의 "U" - 일정 수정]
+[**lv3. CRUD의 "U" - 일정 수정**]
 - 일정 제목, 작성자명 만 수정가능
 - 일정 수정 요청 시, 비밀번호 함께 전달
 - 작성일 변경 불가 
@@ -89,7 +89,7 @@ lv1 ~ lv4로 CRUD API가 구현되었습니다.
 - API 응답에 비밀번호 제외
 
 
-[lv4. CRUD의 "D" - 일정 삭제]
+[**lv4. CRUD의 "D" - 일정 삭제**]
 - 선택한 일정 삭제
 - 일정 삭제 요청 시, 비밀번호 함께 전달
 
@@ -98,7 +98,7 @@ lv1 ~ lv4로 CRUD API가 구현되었습니다.
 
 ## 패키지별 역할 및 기능
 
-[controller]
+[**controller**]
 - 클라이언트 요청을 받아 Service 계층에 전달/응답 반환
 - API 제공 (CRUD)
     - `POST /schedules` : 일정 생성
@@ -108,22 +108,22 @@ lv1 ~ lv4로 CRUD API가 구현되었습니다.
     - `DELETE /schedules/{scheduleId}` : 일정 삭제
    
 
-[dto]
+[**dto**]
 - 요청/응답 데이터 전달 객체
 - 비밀번호는 응답에서 제외 (보안성 확보)
  
 
-[entity]
-- 데이터베이스 테이블과 매핑되는 클래스
+[**entity**]
+- DB 테이블과 매핑
 - JPA Entity로 정의
 
 
-[repository]
+[**repository**]
 - DB 접근 계층
 - Spring Data JPA 사용 (CRUD 메서드 제공)
 
 
-[service]
+[**service**]
 - 비즈니스 로직 처리 계층
 - 트랜잭션 관리
 - 주요기능(생성/전체조회/단건조회/수정/삭제)
