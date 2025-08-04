@@ -41,19 +41,8 @@ lv1 ~ lv4로 CRUD API가 구현되었습니다.
 ---
 
 ## 패키지 구조
-src/
-└─ main/
-    ├─ java/ 
-    │   └─ com.example.project
-    │       ├─ controller   # 요청/응답 처리
-    │       ├─ dto          # 데이터 전달 객체
-    │       ├─ entity       # JPA 엔티티 클래스
-    │       ├─ repository   # DB 접근 계층
-    │       └─ service      # 비즈니스 로직 계층
-    │
-    └─ resources/
-        └─ application.yml  # 설정 파일
 
+![패키지 구조](./images/패키지구조.png)
 
 ---
 
